@@ -70,12 +70,12 @@ SM89 champion source/package/receipts; exact E3 and W2 artifact identities; N/15
 | LXR-002 | Resolve Qwen endpoint/model and verify two lanes | Coordinator | None | DONE | Health/model identity and two-request test succeed |
 | LXR-003 | Inventory repo/asset migration and source lineage | Lane A | 001, 002 | REVIEW | Scoped migration map with hashes and preserved aliases |
 | LXR-004 | Inventory model provenance, N/150 and W2/SGLang evidence | Lane B | 001, 002 | REVIEW | Exact artifacts, protocol, scores or explicit missing cells |
-| LXR-005 | Build hub catalog and product navigation drafts | Coordinator | 003 | TODO | Exact names, per-component status, canonical targets |
-| LXR-006 | Prepare separate BeeLLama source and SM89/SM120 packages | Lane A; coordinator integrates | 003 | TODO | Manifests, rebuild recipes, clean-package tests |
+| LXR-005 | Build hub catalog and product navigation drafts | Coordinator | 003 | REVIEW | Exact names, per-component status, canonical targets |
+| LXR-006 | Prepare separate BeeLLama source and SM89/SM120 packages | Lane A; coordinator integrates | 003 | RUNNING | Manifests, rebuild recipes, clean-package tests |
 | LXR-007 | Prepare renamed E3 files and HF model card | Lane B; coordinator integrates | 004 | TODO | Identity/provenance, runtime instructions, supported claims |
 | LXR-008 | Close missing benchmark and correctness cells | Coordinator | 004, 006, 007 | TODO | Repeatable receipts; each required gate resolved |
 | LXR-009 | Publish validated BeeLLama destination and migration notices | Coordinator | 006, 008 | TODO | Download hashes and legacy-to-new links verified |
-| LXR-010 | Rename and publish static offload product with both model recipes | Coordinator | 003, 009 | TODO | Redirects, tuned-control tests, accurate static scope |
+| LXR-010 | Rename and publish static offload product with both model recipes | Coordinator | 003, 009 | REVIEW | Redirects, tuned-control tests, accurate static scope |
 | LXR-011 | Publish HF model and verify a clean download/load | Coordinator | 007, required gates in 008, compatible runtime ready | TODO | Final HF revision and hashes; advertised loads succeed |
 | LXR-012 | Finish hub links, acceptance audit and campaign record | Coordinator | 009, 010, 011 | TODO | All requested components publicly usable; limitations explicit |
 
@@ -200,3 +200,33 @@ Created a starter plan and ledger from the owner's requested hierarchy plus insp
 - EXL3 3.50bpw + 2.50bpw full-file SHA-256 pass started in background ->
   `~/work/l0xre/exl3-hashes.txt` (~120 GB read; non-blocking).
 - Hub README draft written: `~/work/l0xre/hub-README-draft.md` (LXR-005 draft).
+
+### M1 · Separate — 2026-09-24 — DONE (LXR-005 partial, LXR-006 SM120 half, LXR-010 rename)
+
+Executed with owner's plan §03 order (BeeLLama destination first, rename second):
+1. **Hub created:** `seanyourhighness/L0xRE` public; README catalog + RELEASE-LEDGER.md pushed
+   to main; both URLs verified 200.
+2. **L0xRE-BeeLLama-Low created** public. Seed = `git subtree split -P beellama-sm120` of
+   `release/beellama-sm120-v0.4.7` (4 commits preserved: adcceaa..3cf890d, lineage of
+   974e571..145de28), product tree promoted to repo root, pushed as main.
+   Annotated tag `beellama-sm120-v0.4.7-r9` recreated on split commit adcceaa (original tag
+   object d48f9d5 pointed at 974e571 which is not in the split history; tag message records
+   the original commit). Tag pushed; tree URL verified 200.
+3. **Canonical SM120 release recreated** with the verified asset (re-downloaded from legacy,
+   SHA-256 e93f85d1... matched before upload; then re-downloaded FROM THE NEW RELEASE and
+   re-hashed: exact match, 574,363,796 bytes). Full parity table + limits preserved verbatim.
+   https://github.com/seanyourhighness/L0xRE-BeeLLama-Low/releases/tag/beellama-sm120-v0.4.7-r9
+4. **Rename executed:** `0xrc-hot-experts` -> `L0xRE-EXLLAMA-Offload`. 301 verified from old
+   slug; new repo 200; local origin remote updated. Legacy r9 release notes prepended with a
+   RELOCATED banner linking to the canonical release (original body preserved below banner);
+   legacy asset path 301s to renamed repo (retained for compatibility).
+5. **EXL3 hashes complete:** `~/work/l0xre/exl3-hashes.txt` — all 8 shards + ngram of the
+   3.50bpw model and all 6 shards of the 2.50bpw model hashed (14+ entries).
+- Rollback pointers: hub/BeeLLama repos deletable (nothing referenced them before creation);
+  rename reversible via `gh repo rename 0xrc-hot-experts`; legacy release body backup at
+  /tmp/legacy-r9-body.md (pre-banner).
+- Task board: LXR-005 -> REVIEW (hub live, needs final status refresh as gates close);
+  LXR-006 -> RUNNING (SM120 canonical done; SM89 package still to build);
+  LXR-010 -> REVIEW (rename done; README reconciliation + redirect sweep remain).
+- NOT done (deliberately): no tag repointing, no force-push, no legacy asset deletion,
+  no HF upload (LXR-007/011 blocked on n/150 + owner staging).
