@@ -280,3 +280,30 @@ Executed with owner's plan §03 order (BeeLLama destination first, rename second
 - **BeeLLama-Low repo:** "champion" appears only inside historical evidence docs
   (parity ledger prose, reflog, archived tag names) — factual history, left as-is.
 - Rollback: alias removal = revert one commit; card is local-only until published.
+
+### SMOKE-001 — E3 no-MTP (firstclass-v2) + DFlash2 on SM89 — 2026-09-25 — PASS
+
+Owner direction: intended public pairing is the 8.03 GiB no-MTP E3
+(escha-e3-firstclass-v2.gguf, 8,619,127,680 B, SHA-256
+b0849250c633aa93853bf119a877dbdafdd7b1a4ebb672bd6b6a1439906f3543, z840
+~/escha-assets/base-models/) + DFlash2 drafter; with-MTP file labeled as MTP variant.
+Both to be uploaded to HF.
+
+Procedure (exclusive GPU window per protocol): drained lanes, killed Qwen server
+(PID 2345305), GPU freed to 4 MiB. rc046 launch path (/mnt/storage/escha-mtp-rc046)
+is GONE; used ~/escha-build/bin/llama-server (escha kernels: 222 strings in
+libllama.so.0.23.0, built Sep 20) + LD_LIBRARY_PATH with ~/cuda-12.8 (libcudart.so.12).
+Launch: -c 32768 -b 2048 -ub 1024 -ngl 99 -fa on -ctk kvarn3 -ctv kvarn2
+--spec-type draft-dflash --spec-draft-n-max 5, drafter Qwen3.8-27B-DFlash2-Q4_K_M.
+
+Results:
+- Model + draft loaded clean; server listening; DFlash2 init (block_size=8, n_extract=5).
+- Correctness: 17*23 -> 391 correct, reasoning + chat template OK.
+- DFlash2 ACTIVE: acceptance 0.716 (136/190, mean len 4.58) and 0.516 (215/417, mean 3.56).
+- Decode 119-122 tok/s; prefill 53-208 tok/s (RTX 4090, SM89).
+- Restored Qwen server (PID 2414375), health check LANE-OK.
+Log: z840:~/work-smoke-e3nomtp.log.
+
+Caveat: this binary is the Sep-20 escha-build, NOT the exact rc046 champion binary the
+SM89 receipts used. Smoke-level PASS only; no parity claims. SM89 package build (LXR-006)
+still open.
