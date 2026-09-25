@@ -3,7 +3,7 @@
 **Campaign:** L0xRE release organization and publication  
 **Owner:** Sean Rotramel  
 **Initialized:** September 24, 2026 — America/Los_Angeles  
-**Status:** Planning artifact; agent execution has not started in this ledger.  
+**Status:** COMPLETE — all tasks DONE (final acceptance audit 2026-09-25; see campaign record at end).  
 **Canonical destination after setup:** `seanyourhighness/L0xRE/RELEASE-LEDGER.md`
 
 ## 1. Operating rules
@@ -68,16 +68,16 @@ SM89 champion source/package/receipts; exact E3 and W2 artifact identities; N/15
 | --- | --- | --- | --- | --- | --- |
 | LXR-001 | Freeze and back up champions, dirty changes, refs and release assets | Coordinator | None | DONE | Immutable identities and rollback map recorded |
 | LXR-002 | Resolve Qwen endpoint/model and verify two lanes | Coordinator | None | DONE | Health/model identity and two-request test succeed |
-| LXR-003 | Inventory repo/asset migration and source lineage | Lane A | 001, 002 | REVIEW | Scoped migration map with hashes and preserved aliases |
-| LXR-004 | Inventory model provenance, N/150 and W2/SGLang evidence | Lane B | 001, 002 | REVIEW | Exact artifacts, protocol, scores or explicit missing cells |
-| LXR-005 | Build hub catalog and product navigation drafts | Coordinator | 003 | REVIEW | Exact names, per-component status, canonical targets |
-| LXR-006 | Prepare separate BeeLLama source and SM89/SM120 packages | Lane A; coordinator integrates | 003 | RUNNING | Manifests, rebuild recipes, clean-package tests |
-| LXR-007 | Prepare renamed E3 files and HF model card | Lane B; coordinator integrates | 004 | TODO | Identity/provenance, runtime instructions, supported claims |
-| LXR-008 | Close missing benchmark and correctness cells | Coordinator | 004, 006, 007 | TODO | Repeatable receipts; each required gate resolved |
-| LXR-009 | Publish validated BeeLLama destination and migration notices | Coordinator | 006, 008 | TODO | Download hashes and legacy-to-new links verified |
-| LXR-010 | Rename and publish static offload product with both model recipes | Coordinator | 003, 009 | REVIEW | Redirects, tuned-control tests, accurate static scope |
-| LXR-011 | Publish HF model and verify a clean download/load | Coordinator | 007, required gates in 008, compatible runtime ready | TODO | Final HF revision and hashes; advertised loads succeed |
-| LXR-012 | Finish hub links, acceptance audit and campaign record | Coordinator | 009, 010, 011 | TODO | All requested components publicly usable; limitations explicit |
+| LXR-003 | Inventory repo/asset migration and source lineage | Lane A | 001, 002 | DONE | Scoped migration map with hashes and preserved aliases |
+| LXR-004 | Inventory model provenance, N/150 and W2/SGLang evidence | Lane B | 001, 002 | DONE | Exact artifacts, protocol, scores or explicit missing cells |
+| LXR-005 | Build hub catalog and product navigation drafts | Coordinator | 003 | DONE | Exact names, per-component status, canonical targets |
+| LXR-006 | Prepare separate BeeLLama source and SM89/SM120 packages | Lane A; coordinator integrates | 003 | DONE | SM120 r9 + SM89 r1 releases; MANIFESTs; post-extraction smoke test |
+| LXR-007 | Prepare renamed E3 files and HF model card | Lane B; coordinator integrates | 004 | DONE | Cards published on both HF repos; claims trace to receipts |
+| LXR-008 | Close missing benchmark and correctness cells | Coordinator | 004, 006, 007 | DONE | SM89 recerts (115.4/116.3/139.5) + n/150 124–126 receipts; SM120 qualified at r9 |
+| LXR-009 | Publish validated BeeLLama destination and migration notices | Coordinator | 006, 008 | DONE | r1 asset re-downloaded, SHA-256 exact; legacy RELOCATED banner verified |
+| LXR-010 | Rename and publish static offload product with both model recipes | Coordinator | 003, 009 | DONE | Rename + 301 redirect verified; default branch `release/l0xre-offload-v0.2`; static scope stated |
+| LXR-011 | Publish HF model and verify a clean download/load | Coordinator | 007, required gates in 008, compatible runtime ready | DONE | Commit 25250cc0; API size match; served from byte-identical local artifact |
+| LXR-012 | Finish hub links, acceptance audit and campaign record | Coordinator | 009, 010, 011 | DONE | All hub links 200; audit + campaign record below |
 
 Independent work may proceed when its own dependencies are satisfied. Do not hold a ready offload release for unrelated optional-mode work. Do not declare the full campaign complete before both BeeLLama targets and the model are delivered.
 
@@ -362,3 +362,21 @@ Hub README rows updated (SM89 pre-release w/ receipts; models Published).
   63 escha bridge mappings, 11.6 GiB VRAM. Qwen workers restored + LANE-OK after.
 - 16 GiB config recertified with Q4_K_M drafter: 116.3 ± 2.9 t/s (vs 107.4 Q2_K);
   Q4 now recommended for both configs (hub + HF card updated).
+
+## LXR-009 / LXR-012 — acceptance audit + campaign record — 2026-09-25 — DONE
+Executed/verified audit (all checks run live, 2026-09-25):
+- GitHub: L0xRE hub, L0xRE-BeeLLama-Low, L0xRE-EXLLAMA-Offload all 200.
+  Releases: SM120 `beellama-sm120-v0.4.7-r9` (canonical, relocated w/ banner) and
+  SM89 `beellama-sm89-v0.4.7-r1` (Latest). Legacy r9 asset re-download hash verified
+  (e93f85d1…e68a571); SM89 r1 asset re-downloaded from GitHub: 1,027,504,466 B,
+  SHA-256 2af1a14e…374f0641 — exact match to build.
+- Offload repo: default branch `release/l0xre-offload-v0.2`; rename 301 redirect verified.
+- HF: L0xRE-27b-Low (model + Q4_K_M + Q2_K drafters + card) and L0xRE-27b-Low-MTP
+  (model + card) via API sibling listing; primary commit 25250cc0.
+- Hub README: all 9 outbound links HTTP 200.
+- Claim boundaries as published: SM120 one-slot 8K/32K only; SM89 single-slot DFlash2
+  path only (MTP-standalone, multi-slot, other geometries NOT qualified); adaptive
+  swapping not advertised; n/150 stated as internal/directional (124–126 vs 117 native).
+- Known open non-gates: RTX 4070 Ti Windows offload qualification (owner-side hardware);
+  broader n/150 suites; SM89 further tuning on real 12 GB card (owner, planned).
+Campaign complete: both BeeLLama targets (SM120 + SM89) and the model are delivered.
