@@ -230,3 +230,25 @@ Executed with owner's plan §03 order (BeeLLama destination first, rename second
   LXR-010 -> REVIEW (rename done; README reconciliation + redirect sweep remain).
 - NOT done (deliberately): no tag repointing, no force-push, no legacy asset deletion,
   no HF upload (LXR-007/011 blocked on n/150 + owner staging).
+
+### LXR-007 draft + LXR-010 reconciliation — 2026-09-24 — REVIEW
+
+- E3 artifact identity extracted from GGUF metadata (gguf-py): architecture escha/variant e3,
+  base Qwen3.8-27B, 65 blocks (64 + 1 nextn MTP layer, 15 blk.64.nextn.* tensors),
+  embedding/output lowgpu_3bit, projections escha_2_3bit, GDN SSM params, ctx 262144,
+  vocab 248320, 9,468,579,616 bytes, SHA-256 746bd408...0c96b0. Full dump:
+  ~/work/l0xre/e3-gguf-meta.json.
+- **License conflict found:** embedded general.license=apache-2.0 vs Qwen community license on
+  the base model. OWNER DECISION REQUIRED before HF publish.
+- Lane B round 2 produced the HF model-card draft; coordinator filled quickstart commands
+  (from canonical r9 notes), file bytes, and full drafter SHA. Remaining gates on the card:
+  license resolution + n/150 receipts. Draft: ~/work/l0xre/hf-model-card-L0xRE-27b-Low-draft.md
+- Lane A round 2 produced the README reconciliation plan (its BEFORE quotes were paraphrases;
+  coordinator applied edits against the real text instead). Executed on new branch
+  `release/l0xre-offload-v0.2` (from 9ca0885, commit 70d90ab): title -> L0xRE EXLLAMA-Offload,
+  hub pointer, adaptive wording reconciled to experimental/shelved + not-hash-stable warning,
+  repo-slug refs updated in README + doc/0xrc_runtime.md. Branch pushed; made new default.
+  Old default release/0xrc-v0.1 retained untouched (tag 0xrc-v0.1.0 unaffected).
+- Alias policy adopted: 0xrc-exllamav3 stays canonical; l0xre-exllamav3 only after a tested
+  functional-equivalence + output-hash check.
+- Rollback: default branch switchable back to release/0xrc-v0.1; branch deletable.
