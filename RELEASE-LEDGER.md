@@ -348,3 +348,17 @@ YourHighnessLA/L0xRE-27b-Low-MTP: L0xRE-27b-Low-MTP.gguf 9,468,579,616 B
 (746bd408…e70c96b0), README.md card. Sizes verified via repo_info post-upload.
 Frontmatter fix: license_name must match [a-z0-9-.] -> qwen-research-terms-derivative.
 Hub README rows updated (SM89 pre-release w/ receipts; models Published).
+
+## LXR-006 SM89 — CLOSED (executed/verified, 2026-09-25)
+- Release `beellama-sm89-v0.4.7-r1` on L0xRE-BeeLLama-Low, target branch
+  `release/l0xre-sm89-v0.4.7` @ 8ad76c8.
+- Asset `escha-beellama-v047-sm89-r1.tar.zst` 1,027,504,466 B,
+  SHA-256 2af1a14e0919f1f71eaf40e34d18c79a8b73a84af13fb3cdfa6c5076d5c25208
+  (GitHub asset size verified exact).
+- Package: bin/ (llama-server + libs, $ORIGIN runpath, bundled cuBLAS 12.8.4.1),
+  bridge/ (SM89 cubins + bridge libs), l0xre launcher (profiles 12gb/16gb/full32k,
+  spec flags only when -md given), QUICKSTART/MODELS/MANIFEST/SHA256SUMS (54 files), receipts/.
+- Post-extraction smoke (fresh /tmp extract, launcher-only): 121.9 ± 3.2 t/s code decode,
+  63 escha bridge mappings, 11.6 GiB VRAM. Qwen workers restored + LANE-OK after.
+- 16 GiB config recertified with Q4_K_M drafter: 116.3 ± 2.9 t/s (vs 107.4 Q2_K);
+  Q4 now recommended for both configs (hub + HF card updated).
