@@ -307,3 +307,33 @@ Log: z840:~/work-smoke-e3nomtp.log.
 Caveat: this binary is the Sep-20 escha-build, NOT the exact rc046 champion binary the
 SM89 receipts used. Smoke-level PASS only; no parity claims. SM89 package build (LXR-006)
 still open.
+
+### SMOKE-002 / KERNEL-PORT-001 — SM89 v0.4.7 runtime — 2026-09-25 — DONE
+
+Supersedes SMOKE-001 (wrong binary). Correct runtime:
+~/work/escha-beellama-v047-candidate/build-sm89 (v0.4.7 base, SM89).
+
+Finding: the v0.4.7 SM89 build shipped WITHOUT the rc046 champion decode kernels
+(lowgpu MROW/RT/ROWS + mmvf MTP-0071 absent from libggml-cuda.so). Code decode
+measured 95.9 (MTP file) / 94.1 (no-MTP) vs rc046-era control 141.9 — a runtime
+regression, not a model regression. Model isolation: same file, same drafter,
+same bench.sh; only the runtime differed.
+
+Port: patches applied cleanly to the v0.4.7 tree (git init'd; baseline 20b7124,
+port 107970f, receipts 492b1ee + 0930bd1). Rebuild required link fix
+(-Wl,-rpath-link for libcudart/libcublas). Kernels verified in new lib (3/3 strings).
+
+Recert on ported runtime (club-3090 bench.sh, ONLY=code, n=5, exclusive GPU):
+- Full-GPU 32K + DFlash2-Q4: MTP 143.0 ± 5.7 (peak 150.8); no-MTP 139.5 ± 7.5 (peak 149.9).
+- 12 GiB certified config (80K, ub64, N3, Q4_K_M drafter): 115.4 ± 2.4 (was ~78.6 rc046-era).
+- 16 GiB certified config (256K, ub512, N3, Q2_K drafter, window16k): 107.4 ± 3.5 (was ~78.2).
+- Prefill (llama-bench p2048, pre-port): 2578 ± 78 t/s.
+Drafter answer: 12 GiB config uses DFlash2 Q4_K_M; 16 GiB config uses DFlash2 Q2_K
+(from launch-e3-12gb-candidate.sh / profile-e3-16gb-k33.env, both revalidated today).
+
+Pushed: branch release/l0xre-sm89-v0.4.7 @ 0930bd1 on
+seanyourhighness/L0xRE-BeeLLama-Low (receipts in bench-receipts/).
+HF: YourHighnessLA/L0xRE-27b-Low (non-MTP lead + both drafters) and
+YourHighnessLA/L0xRE-27b-Low-MTP uploading with final cards; hashes:
+L0xRE-27b-Low b0849250…906f3543, MTP 746bd408…e70c96b0,
+Q4_K_M 1a25c568…db131ebd, Q2_K e3eb7705…41563fb7e.
