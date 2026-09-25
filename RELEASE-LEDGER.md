@@ -252,3 +252,31 @@ Executed with owner's plan §03 order (BeeLLama destination first, rename second
 - Alias policy adopted: 0xrc-exllamav3 stays canonical; l0xre-exllamav3 only after a tested
   functional-equivalence + output-hash check.
 - Rollback: default branch switchable back to release/0xrc-v0.1; branch deletable.
+
+### LXR-008 receipts FOUND + license resolved + alias migration — 2026-09-24 — DONE (REVIEW)
+
+- **n/150 receipts located on disk (prior runs, not new):** internal 8-pack suite, pass@1:
+  E3 think-on 124/150, 121/150, 126/150 (3 passes); E3 think-off 116/150;
+  W2 think-on 125/150, 129/150; native baseline think-off 117/150.
+  Logs: ~/release-escha-dflash/final/quality-{e3,w2,native}-*.log (served from z840:30000,
+  RTX 4090/SM89). Provenance: launch-escha.sh served /mnt/storage/escha-mtp-rc046/ copy
+  (since removed); z840 escha-assets copy hashes to the SAME SHA-256 746bd408...0c96b0 as
+  the publishing artifact -> receipts apply to the released bytes with medium confidence
+  (path-at-run-time unverifiable). Owner will run further n/150 later.
+- **License (owner direction 2026-09-24):** per-component — derivative weights under Qwen
+  research/community terms (base model), runtime tooling Apache-2.0; low-key single pointer
+  in card, full notices in hub repo. Public framing: "27B hybrid model that runs well",
+  no component-stack marketing.
+- **Final HF README drafted:** ~/work/l0xre/hf-README-L0xRE-27b-Low.md (frontmatter
+  license: other/qwen-research-terms; quality table with receipts; qualification limits;
+  file identity SHA 746bd408..., 9,468,579,616 B). NOT yet published to HF — publish is a
+  separate owner-approved step.
+- **Alias migration (offload repo, release/l0xre-offload-v0.2):** primary CLI entrypoint is
+  now `l0xre-exllamav3`; `0xrc-exllamav3` kept as legacy alias to the same entrypoint
+  (no breakage). README + doc/0xrc_runtime.md use the new alias. pyproject scripts verified
+  parseable. Internal module names (exllamav3.champion.*, champion-profile.json,
+  EXL3_CHAMPION_*) intentionally UNCHANGED — renaming them breaks profiles/env; deferred
+  behind a tested equivalence check per alias policy.
+- **BeeLLama-Low repo:** "champion" appears only inside historical evidence docs
+  (parity ledger prose, reflog, archived tag names) — factual history, left as-is.
+- Rollback: alias removal = revert one commit; card is local-only until published.
