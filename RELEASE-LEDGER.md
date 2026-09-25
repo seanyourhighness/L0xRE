@@ -337,3 +337,14 @@ HF: YourHighnessLA/L0xRE-27b-Low (non-MTP lead + both drafters) and
 YourHighnessLA/L0xRE-27b-Low-MTP uploading with final cards; hashes:
 L0xRE-27b-Low b0849250…906f3543, MTP 746bd408…e70c96b0,
 Q4_K_M 1a25c568…db131ebd, Q2_K e3eb7705…41563fb7e.
+
+### LXR-007/011 — HF PUBLISH — 2026-09-25 — DONE
+
+YourHighnessLA/L0xRE-27b-Low (commit 25250cc): L0xRE-27b-Low.gguf 8,619,127,680 B
+(b0849250…906f3543), DFlash2-Q4_K_M 1,143,006,816 B (1a25c568…db131ebd),
+DFlash2-Q2_K 705,430,880 B (e3eb7705…41563fb7e), README.md card (non-MTP lead,
+certified 12/16 GiB quickstarts, n/150 124-126/150).
+YourHighnessLA/L0xRE-27b-Low-MTP: L0xRE-27b-Low-MTP.gguf 9,468,579,616 B
+(746bd408…e70c96b0), README.md card. Sizes verified via repo_info post-upload.
+Frontmatter fix: license_name must match [a-z0-9-.] -> qwen-research-terms-derivative.
+Hub README rows updated (SM89 pre-release w/ receipts; models Published).
