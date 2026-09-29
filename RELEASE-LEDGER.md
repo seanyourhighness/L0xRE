@@ -380,3 +380,9 @@ Executed/verified audit (all checks run live, 2026-09-25):
 - Known open non-gates: RTX 4070 Ti Windows offload qualification (owner-side hardware);
   broader n/150 suites; SM89 further tuning on real 12 GB card (owner, planned).
 Campaign complete: both BeeLLama targets (SM120 + SM89) and the model are delivered.
+
+## September 29, 2026 — BeeLLama universal B84 candidate
+
+The canonical BeeLLama installation/test page is now the L0xRE-BeeLLama-Low README. The hub routes there instead of maintaining a duplicate per-architecture download/instruction matrix. The universal release has one Linux/WSL archive and one Windows ZIP, with SM86/SM89/SM120 coverage, source provenance, pinned model links, checksums and explicit qualification limits.
+
+SM86 improvements are committed on source branch `release/sm86-b84-universal` at `be302741801080a4fa2ea713fdf9409e2ef599d5`: head128, B74 bridge/vector reconstruction inputs, Windows port/export verification and universal architecture-list support. Model hashes remain unchanged. Linux benchmark receipts match the champion component bytes. Windows is rebuilt and binary/dependency verified, with GPU execution pending; the release remains a candidate. Detailed build and archive validation records live in the runtime repository's `evidence/universal/`.

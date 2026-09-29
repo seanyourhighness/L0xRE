@@ -1,48 +1,18 @@
-# L0xRE Releases
+# L0xRE
 
-Curated runtimes and models for running large quantized LLMs on consumer GPUs.
-One family, three products, every claim traceable to a measured artifact.
+Consumer-GPU runtimes and compact model releases.
 
-## Choose your release
+## L0xRE BeeLLama
 
-| Product | Best for | Model / format | Tested hardware | Status | Quickstart |
-| --- | --- | --- | --- | --- | --- |
-| [**L0xRE-EXLLAMA-Offload**](https://github.com/seanyourhighness/L0xRE-EXLLAMA-Offload) | Large routed-MoE EXL3 checkpoints that need static expert CPU/GPU offload | EXL3 (ExLlamaV3 fork, Python `exllamav3`) | RTX 5090, RTX 4090 (Linux/WSL2) — qualified; RTX 4070 Ti Windows in progress | Pre-release | [Install](https://github.com/seanyourhighness/L0xRE-EXLLAMA-Offload#install) |
-| [**L0xRE-BeeLLama-Low**](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low) · SM120 | Escha E3/W2 + stock GGUF on RTX 5090, incl. DFlash2 spec decode | GGUF (BeeLlama/llama.cpp fork) | RTX 5090 (SM120), Ubuntu 24.04 WSL, driver 616.56 — qualified one-slot 8K/32K | Stable (v0.4.7-r9) | [Quickstart](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low#quickstart) |
-| [**L0xRE-BeeLLama-Low**](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low) · SM89 | Same runtime on RTX 4090-class GPUs | GGUF | RTX 4090 (SM89) — 12 GiB/80K + 16 GiB/256K + full-32K configs certified | Release `beellama-sm89-v0.4.7-r1` | [Release](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low/releases/tag/beellama-sm89-v0.4.7-r1) |
-| [**L0xRE-BeeLLama-Low**](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low) · SM86 | Same runtime on RTX 30-series | GGUF | Never executed on SM86 hardware (compat-path validated on 4090) — **experimental, no perf claims** | Release `beellama-sm86-v0.4.7-x1-experimental` | [Release](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low/releases/tag/beellama-sm86-v0.4.7-x1-experimental) |
-| [**L0xRE-BeeLLama-Low**](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low) · Windows | Precompiled Windows runtimes: **universal zip** (one build, SM86/SM89/SM120, auto-routed) or per-arch zips | GGUF | Binary-verified (arch cubins, PE exports, SHA256SUMS); **not yet executed on target hardware** — SM86 zip is experimental | Release `beellama-v0.4.7-windows-r1` | [Release](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low/releases/tag/beellama-v0.4.7-windows-r1) |
-| [**L0xRE-27b-Low**](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low) | Smaller-footprint 27B hybrid (formerly Escha E3) with measured native-GGUF parity | GGUF (requires L0xRE-BeeLLama-Low; **not** stock llama.cpp/Ollama/LM Studio) | Served via L0xRE-BeeLLama-Low SM120 (qualified) / SM89 (115.4 / 116.3 tok/s code decode, certified configs) | Published ([non-MTP](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low) · [MTP variant](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low-MTP)) | [Quickstart](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low#quickstart-sm89-rtx-4090-class--certified-12-gib-config) |
+**[Open the L0xRE BeeLLama page](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low#readme)** for the Linux/WSL and Windows universal builds, GPU test results, model links, checksums, and installation instructions.
 
-## Status legend
+The B84 release candidate targets NVIDIA RTX 30–50 series with at least 12 GB GPU VRAM. The canonical page distinguishes measured Linux performance from build and dependency coverage. Windows GPU testing remains pending.
 
-- **Stable** — qualified gates published with receipts; safe default.
-- **Pre-release** — works on qualified hardware; qualification incomplete (see release notes).
-- **Unqualified / pending** — exists, not packaged or not yet measured; do not deploy.
+**[Download the universal release](https://github.com/seanyourhighness/L0xRE-BeeLLama-Low/releases/tag/beellama-v0.4.7-sm86-b84-universal-r1)** · **[L0xRE-27b-Low model](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low)**
 
-## Benchmarks & evidence
+## Other L0xRE projects
 
-Every performance statement links to a receipt naming the exact artifact, host, and protocol.
+- [L0xRE EXLLAMA Offload](https://github.com/seanyourhighness/L0xRE-EXLLAMA-Offload): EXL3 checkpoints with static expert CPU/GPU offload.
+- [L0xRE-27b-Low-MTP](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low-MTP): separate MTP-containing target; benchmark attribution follows its own file hash.
 
-- SM120 v0.4.7-r9 parity (E3/W2 vs matched native GGUF, ≥0.95 all rows): see the release's
-  `PARITY.md` and `docs/escha-v047-sm120-parity-ledger.md`.
-- EXL3 offload (5090: 64.04 tok/s; 4090: 26.53 tok/s static+MTP3): `benchmarks/` in the
-  offload repo.
-- SM89 v0.4.7-r1 (RTX 4090): 12 GiB 115.4 ± 2.4 · 16 GiB 116.3 ± 2.9 · full-32K 139.5 ± 7.5 tok/s
-  code decode; prefill 2578 ± 78. Receipts in the release archive (`receipts/`).
-- N/150 quality: 124–126 / 150 pass@1 (three passes, thinking on) vs 117 native baseline —
-  published on the [L0xRE-27b-Low model card](https://huggingface.co/YourHighnessLA/L0xRE-27b-Low#quality).
-  Internal suite, directional; broader runs pending.
-
-## Migration map
-
-| Old location | New canonical | Redirect |
-| --- | --- | --- |
-| `seanyourhighness/0xrc-hot-experts` | `seanyourhighness/L0xRE-EXLLAMA-Offload` | GitHub 301 (repo rename) |
-| BeeLLama SM120 r9 release (misplaced in 0xrc-hot-experts) | `L0xRE-BeeLLama-Low` release `beellama-sm120-v0.4.7-r9` | Legacy release notes link forward; old assets retained |
-| Escha E3 (`escha-e3-with-mtp.gguf`) | `YourHighnessLA/L0xRE-27b-Low` on HF | Name map + SHA-256 identity preserved |
-
-## Campaign record
-
-The full release ledger (decisions, receipts, failures, rollback pointers) lives at
-[`RELEASE-LEDGER.md`](RELEASE-LEDGER.md) in this repository.
+[Release campaign ledger](RELEASE-LEDGER.md). Older release links remain available in their repositories for rollback.
